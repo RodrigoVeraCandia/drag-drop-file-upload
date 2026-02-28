@@ -1,3 +1,11 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Coverage
+tests/coverage/lcov-report/
+tests/coverage/*.info
+
 # OS
 .DS_Store
 Thumbs.db
