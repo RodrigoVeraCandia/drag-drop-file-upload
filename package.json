@@ -1,0 +1,28 @@
+{
+  "name": "drag-drop-file-upload",
+  "version": "1.0.0",
+  "description": "Sistema de Drag & Drop para Subida de Archivos",
+  "main": "script.js",
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "node generate-coverage-report.js",
+    "test:watch": "jest --watch",
+    "test:verbose": "jest --verbose",
+    "test:report": "node run-tests.js",
+    "coverage": "node generate-coverage-report.js",
+    "coverage:open": "node generate-coverage-report.js && start tests/reports/coverage-report.html"
+  },
+  "keywords": [
+    "drag-drop",
+    "file-upload",
+    "javascript",
+    "vanilla-js"
+  ],
+  "author": "Rodrigo Vera Candia",
+  "license": "MIT",
+  "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  }
+}

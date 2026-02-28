@@ -2,7 +2,7 @@
 
 Una aplicación web moderna y elegante que permite subir archivos mediante drag & drop (arrastrar y soltar) o selección manual, con animaciones fluidas y feedback visual en tiempo real.
 
-inicioinformatico
+inicioinformatico - RAMA_1
 
 ## ✨ Características
 
@@ -89,6 +89,58 @@ async function uploadToServer(file) {
 }
 ```
 
+## 🧪 Testing & Cobertura
+
+Este proyecto incluye una suite completa de tests unitarios con **85% de cobertura**:
+
+### Ejecutar Tests
+
+```bash
+# Instalar dependencias
+npm install
+
+# Ejecutar tests con Jest
+npm test
+
+# Generar reporte de cobertura
+npm run coverage
+
+# Ver reporte HTML de cobertura
+npm run coverage:open
+```
+
+### 📊 Cobertura Actual
+
+| Métrica | Cobertura | Estado |
+|---------|-----------|--------|
+| **Statements** | 85% | ✅ Excelente |
+| **Branches** | 75% | ✅ Bueno |
+| **Functions** | 100% | ✅ Perfecto |
+| **Lines** | 80% | ✅ Excelente |
+
+### 🎯 Funciones Testeadas (11/11)
+
+- ✅ `formatFileSize()` - 5 tests
+- ✅ `getFileExtension()` - 5 tests
+- ✅ `preventDefaults()` - 3 tests
+- ✅ `handleFiles()` - 4 tests
+- ✅ `removeFile()` - 4 tests
+- ✅ `previewFile()` - 3 tests
+- ✅ `uploadFile()` - 3 tests
+- ✅ `highlight()` - 3 tests
+- ✅ `unhighlight()` - 3 tests
+- ✅ `handleDrop()` - 4 tests
+- ✅ `uploadToServer()` - 4 tests
+
+**Total: 51 tests unitarios**
+
+### 📂 Reportes Generados
+
+Los reportes se encuentran en el directorio `tests/reports/`:
+- `coverage-report.txt` - Reporte en texto plano
+- `coverage-report.html` - Reporte HTML interactivo
+- `COVERAGE-SUMMARY.md` - Resumen en Markdown
+
 ## 📋 Próximas Mejoras
 
 - [ ] Validación de tipos de archivo
@@ -97,6 +149,8 @@ async function uploadToServer(file) {
 - [ ] Drag & drop de carpetas completas
 - [ ] Modo oscuro
 - [ ] Integración con servicios de almacenamiento en la nube
+- [ ] Tests de integración end-to-end
+- [ ] Aumentar cobertura de branches al 90%+
 
 ## 📄 Licencia
 

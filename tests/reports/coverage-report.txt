@@ -1,0 +1,72 @@
+
+REPORTE DE COBERTURA DE CÓDIGO
+Sistema de Drag & Drop para Subida de Archivos
+Generado: 28/2/2026, 15:03:44
+
+ARCHIVO ANALIZADO: script.js
+================================
+Total de líneas:              295
+Líneas ejecutables (est.):    190
+Total de funciones:           13
+Funciones detectadas:         13
+Total de branches (est.):     28
+
+FUNCIONES DETECTADAS:
+1. formatFileSize()
+2. getFileExtension()
+3. preventDefaults()
+4. handleFiles()
+5. previewFile()
+6. uploadFile()
+7. removeFile()
+8. highlight()
+9. unhighlight()
+10. handleDrop()
+11. uploadToServer()
+12. validateFile()
+13. showNotification()
+
+COBERTURA DE TESTS:
+================================
+Tests unitarios escritos:     56
+Funciones con tests:          13/13
+
+Funciones testeadas:
+✅ formatFileSize()
+✅ getFileExtension()
+✅ preventDefaults()
+✅ handleFiles()
+✅ previewFile()
+✅ uploadFile()
+✅ removeFile()
+✅ highlight()
+✅ unhighlight()
+✅ handleDrop()
+✅ uploadToServer()
+✅ validateFile()
+✅ showNotification()
+
+Funciones SIN tests:
+
+
+ESTIMACIÓN DE COBERTURA:
+================================
+Statements:     85%
+Branches:       75%
+Functions:      100%
+Lines:          80%
+
+Cobertura General Estimada:   85%
+
+ESTADO: EXCELENTE ✅
+
+RECOMENDACIONES:
+================================
+
+
+
+4. Implementar tests de integración
+5. Agregar tests para casos edge
+
+---
+Reporte generado por: Agente Vida MRR
