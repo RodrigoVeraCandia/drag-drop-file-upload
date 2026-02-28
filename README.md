@@ -2,6 +2,8 @@
 
 Una aplicación web moderna y elegante que permite subir archivos mediante drag & drop (arrastrar y soltar) o selección manual, con animaciones fluidas y feedback visual en tiempo real.
 
+inicioinformatico
+
 ## ✨ Características
 
 - **🎯 Drag & Drop Intuitivo**: Arrastra archivos directamente a la zona de carga
