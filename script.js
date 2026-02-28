@@ -1,0 +1,176 @@
+// Elementos del DOM
+const uploadArea = document.getElementById('uploadArea');
+const fileInput = document.getElementById('fileInput');
+const browseBtn = document.getElementById('browseBtn');
+const filesPreview = document.getElementById('filesPreview');
+
+// Array para almacenar archivos
+let uploadedFiles = [];
+
+// Prevenir comportamiento predeterminado para drag & drop en toda la página
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    document.body.addEventListener(eventName, preventDefaults, false);
+});
+
+function preventDefaults(e) {
+    e.preventDefault();
+    e.stopPropagation();
+}
+
+// Efectos visuales para la zona de carga
+['dragenter', 'dragover'].forEach(eventName => {
+    uploadArea.addEventListener(eventName, highlight, false);
+});
+
+['dragleave', 'drop'].forEach(eventName => {
+    uploadArea.addEventListener(eventName, unhighlight, false);
+});
+
+function highlight(e) {
+    uploadArea.classList.add('drag-over');
+}
+
+function unhighlight(e) {
+    uploadArea.classList.remove('drag-over');
+}
+
+// Manejar el drop de archivos
+uploadArea.addEventListener('drop', handleDrop, false);
+
+function handleDrop(e) {
+    const dt = e.dataTransfer;
+    const files = dt.files;
+    handleFiles(files);
+}
+
+// Click en el área de carga o botón
+uploadArea.addEventListener('click', () => fileInput.click());
+browseBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    fileInput.click();
+});
+
+// Selección de archivos mediante input
+fileInput.addEventListener('change', function() {
+    handleFiles(this.files);
+});
+
+// Procesar archivos
+function handleFiles(files) {
+    [...files].forEach(file => {
+        uploadedFiles.push(file);
+        previewFile(file);
+        uploadFile(file);
+    });
+}
+
+// Mostrar preview del archivo
+function previewFile(file) {
+    const fileId = Date.now() + Math.random();
+    const fileSize = formatFileSize(file.size);
+    const fileExtension = getFileExtension(file.name);
+    
+    const fileItem = document.createElement('div');
+    fileItem.className = 'file-item';
+    fileItem.setAttribute('data-file-id', fileId);
+    
+    fileItem.innerHTML = `
+        <div class="file-info-container">
+            <div class="file-icon">${fileExtension}</div>
+            <div class="file-details">
+                <div class="file-name">${file.name}</div>
+                <div class="file-size">${fileSize}</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+        <div class="file-actions">
+            <span class="status-badge status-uploading">Subiendo...</span>
+            <button class="remove-btn" onclick="removeFile('${fileId}')">Eliminar</button>
+        </div>
+    `;
+    
+    filesPreview.appendChild(fileItem);
+}
+
+// Simular carga de archivo
+function uploadFile(file) {
+    const fileId = Array.from(filesPreview.children)
+        .find(item => item.querySelector('.file-name').textContent === file.name)
+        ?.getAttribute('data-file-id');
+    
+    if (!fileId) return;
+    
+    const progressFill = filesPreview.querySelector(`[data-file-id="${fileId}"] .progress-fill`);
+    const statusBadge = filesPreview.querySelector(`[data-file-id="${fileId}"] .status-badge`);
+    
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += Math.random() * 15;
+        
+        if (progress >= 100) {
+            progress = 100;
+            clearInterval(interval);
+            
+            // Marcar como completado
+            statusBadge.textContent = 'Completado';
+            statusBadge.className = 'status-badge status-success';
+            
+            // Aquí puedes agregar la lógica real de carga
+            // Por ejemplo, usando FormData y fetch:
+            // uploadToServer(file);
+        }
+        
+        progressFill.style.width = progress + '%';
+    }, 200);
+}
+
+// Función para cargar archivo al servidor (ejemplo)
+async function uploadToServer(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    try {
+        const response = await fetch('/upload', {
+            method: 'POST',
+            body: formData
+        });
+        
+        if (response.ok) {
+            console.log('Archivo subido correctamente:', file.name);
+        } else {
+            console.error('Error al subir archivo:', file.name);
+        }
+    } catch (error) {
+        console.error('Error de red:', error);
+    }
+}
+
+// Eliminar archivo
+function removeFile(fileId) {
+    const fileItem = filesPreview.querySelector(`[data-file-id="${fileId}"]`);
+    if (fileItem) {
+        fileItem.style.animation = 'slideIn 0.3s ease reverse';
+        setTimeout(() => {
+            fileItem.remove();
+        }, 300);
+    }
+}
+
+// Formatear tamaño del archivo
+function formatFileSize(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    
+    return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+}
+
+// Obtener extensión del archivo
+function getFileExtension(filename) {
+    const ext = filename.split('.').pop().toUpperCase();
+    return ext.length > 4 ? ext.substring(0, 4) : ext;
+}
